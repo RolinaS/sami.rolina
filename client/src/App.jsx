@@ -1,25 +1,23 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import Header from './components/header/Header';
-import Home from './pages/Home';
-import About from './pages/About';
-import Contact from './pages/Contact';
-import './style.css';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Header from './components/Header';
+import Accueil from './pages/Accueil';
+import Sog from './pages/SOG';
+import Gd from './pages/GD';
+import './index.css';
+import 'bootstrap/dist/css/bootstrap.min.css'
+import Footer from './components/Footer';
 
-
-const App = () => {
+export default function App() {
   return (
     <Router>
-      <div>
-        <Header />
-        <Switch>
-          <Route exact path="/" component={Home} />
-          <Route path="/about" component={About} />
-          <Route path="/contact" component={Contact} />
-        </Switch>
-      </div>
+      <Header />
+      <Routes>
+        <Route path="/" element={<Accueil />} />
+        <Route path="/gendarmes" element={<Gd />} />
+        <Route path="/sous-officier" element={<Sog />} />
+      </Routes>
+      <Footer/>
     </Router>
   );
-};
-
-export default App;
+}
