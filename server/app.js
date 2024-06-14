@@ -6,7 +6,9 @@ require('dotenv').config();
 
 const app = express();
 
+// Middleware
 app.use(cors());
+app.use(express.json()); // Middleware pour analyser les requêtes JSON
 
 const dbOptions = {
   host: process.env.DB_HOST,
@@ -18,7 +20,7 @@ const dbOptions = {
 
 app.use(myConnection(mysql, dbOptions, 'single'));
 
-//LIST MDL
+// LIST MDL
 app.get('/api/gendarmes', (req, res) => {
   req.getConnection((err, connection) => {
     if (err) {
@@ -26,7 +28,7 @@ app.get('/api/gendarmes', (req, res) => {
       return res.status(500).send('Database connection error');
     }
 
-    const query = 'SELECT * FROM gendarmes';  // Make sure your table name is 'homme'
+    const query = 'SELECT * FROM gendarmes';  // Assurez-vous que le nom de votre table est correct
 
     connection.query(query, (err, results) => {
       if (err) {
@@ -39,7 +41,7 @@ app.get('/api/gendarmes', (req, res) => {
   });
 });
 
-//LIST SOG
+// LIST SOG
 app.get('/api/sous-officier', (req, res) => {
   req.getConnection((err, connection) => {
     if (err) {
@@ -47,7 +49,7 @@ app.get('/api/sous-officier', (req, res) => {
       return res.status(500).send('Database connection error');
     }
 
-    const query = 'SELECT * FROM sog';  // Make sure your table name is 'homme'
+    const query = 'SELECT * FROM sog';  // Assurez-vous que le nom de votre table est correct
 
     connection.query(query, (err, results) => {
       if (err) {
@@ -60,21 +62,30 @@ app.get('/api/sous-officier', (req, res) => {
   });
 });
 
-//INSERT
-app.post('/add/gendarmes', (req, res) => {
-  const { name, value } = req.body;
+// INSERT
+app.post('/ajout/gendarmes', (req, res) => {
+  console.log('Request Body:', req.body); // Ajoutez ceci pour déboguer
 
-  if (!name || !value) {
-    return res.status(400).json({ error: 'Name and value are required' });
+  const { nom, prenom, grade } = req.body; // Assurez-vous que req.body contient les bonnes clés
+
+  if (!nom || !prenom || !grade) {
+    return res.status(400).json({ error: 'Nom, prenom et grade sont requis' });
   }
 
-  const query = 'INSERT INTO gendarmes (nom, prenom, grade) VALUES (?, ?, ?)';
-  connection.query(query, [nom, prenom, grade], (error, results) => {
-    if (error) {
-      console.error('Error adding element to database:', error);
-      return res.status(500).json({ error: 'Internal Server Error' });
+  req.getConnection((err, connection) => {
+    if (err) {
+      console.error('Error connecting to the database:', err);
+      return res.status(500).send('Database connection error');
     }
-    res.status(201).json({ message: 'Element added successfully', id: results.insertId });
+
+    const query = 'INSERT INTO gendarmes (nom, prenom, grade) VALUES (?, ?, ?)';
+    connection.query(query, [nom, prenom, grade], (error, results) => {
+      if (error) {
+        console.error('Error adding element to database:', error);
+        return res.status(500).json({ error: 'Internal Server Error' });
+      }
+      res.status(201).json({ message: 'Element added successfully', id: results.insertId });
+    });
   });
 });
 

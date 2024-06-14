@@ -12,10 +12,10 @@ export default function Ajout() {
 
     try {
       const response = await axios.post('http://localhost:3001/ajout/gendarmes', { nom, prenom, grade });
-      alert(response.data);
+      alert(response.data.message); // Affichage du message de succès
     } catch (error) {
-      console.error('Error adding item:', error);
-      alert('Failed to add item');
+      console.error('Error adding item:', error.response ? error.response.data : error.message);
+      alert(`Failed to add item: ${error.response ? error.response.data : error.message}`);
     }
   };
 
