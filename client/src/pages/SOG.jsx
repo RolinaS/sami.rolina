@@ -1,5 +1,6 @@
 // src/pages/Homme.jsx
 import { useEffect, useState } from 'react';
+import Table from 'react-bootstrap/Table';
 
 export default function SOG() {
   const [gendarmes, setGendarmes] = useState([]);
@@ -40,14 +41,28 @@ export default function SOG() {
 
   return (
     <div>
-      <h1>Liste des gendarmes</h1>
-      <ul>
+      <h1>Liste des sous-officiers</h1>
+      
+      <Table striped bordered hover>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Prenom</th>
+            <th>Nom</th>
+            <th>Grade</th>
+          </tr>
+        </thead>
+        <tbody>
         {gendarmes.map((sog) => (
-          <li key={sog.id}>
-            {sog.nom} {sog.prenom} | {sog.grade}
-          </li>
+          <tr key={sog.id}>
+            <td>{sog.id}</td>
+            <td>{sog.prenom}</td>
+            <td>{sog.nom}</td>
+            <td>{sog.grade}</td>
+          </tr>
         ))}
-      </ul>
+        </tbody>
+      </Table>
     </div>
   );
 }

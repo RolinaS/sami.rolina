@@ -1,5 +1,6 @@
 // src/pages/Homme.jsx
 import { useEffect, useState } from 'react';
+import Table from 'react-bootstrap/esm/Table';
 
 export default function GD() {
   const [gendarmes, setGendarmes] = useState([]);
@@ -41,13 +42,26 @@ export default function GD() {
   return (
     <div>
       <h1>Liste des gendarmes</h1>
-      <ul>
-        {gendarmes.map((gendarme) => (
-          <li key={gendarme.id}>
-            {gendarme.nom} {gendarme.prenom} | {gendarme.grade}
-          </li>
+      <Table striped bordered hover>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Prenom</th>
+            <th>Nom</th>
+            <th>Grade</th>
+          </tr>
+        </thead>
+        <tbody>
+        {gendarmes.map((sog) => (
+          <tr key={sog.id}>
+            <td>{sog.id}</td>
+            <td>{sog.prenom}</td>
+            <td>{sog.nom}</td>
+            <td>{sog.grade}</td>
+          </tr>
         ))}
-      </ul>
+        </tbody>
+        </Table>
     </div>
   );
 }
