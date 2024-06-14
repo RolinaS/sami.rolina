@@ -1,6 +1,8 @@
 // src/pages/Homme.jsx
 import { useEffect, useState } from 'react';
-import Table from 'react-bootstrap/Table';
+import { Link } from 'react-router-dom';
+import Table from 'react-bootstrap/esm/Table';
+import Button from 'react-bootstrap/esm/Button';
 
 export default function SOG() {
   const [gendarmes, setGendarmes] = useState([]);
@@ -42,7 +44,9 @@ export default function SOG() {
   return (
     <div>
       <h1>Liste des sous-officiers</h1>
-      
+      <Link to="/ajout">
+        <Button variant="primary">Ajouter un SOG</Button>
+      </Link>
       <Table striped bordered hover>
         <thead>
           <tr>

@@ -1,16 +1,15 @@
-import {Container, Row, Col, Stack, Image, Nav, NavLink} from "react-bootstrap"
+import {Container, Row, Col, Nav} from "react-bootstrap"
 import { Link } from 'react-router-dom';
 
 export default function Footer(){
     return(
-        <footer>
+        <footer style={{position: 'fixed', bottom: '0', width: '100%'}}>
             < Container fluid>
                 <Row className="bg-primary text-white p-4">
                     <Col className="mx-5">
                         <image 
                             src="https://www.police-nationale.net/wp-content/uploads/2024/02/logo-gendarmerie-nationale-banniere.jpg"
-                            alt="Gendarmerie nationale"
-                            rounded
+                            alt="Gendarmerie nationale"     
                             width={150}
                             height={150}
                         />

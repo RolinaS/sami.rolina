@@ -3,8 +3,9 @@ import Header from './components/Header';
 import Accueil from './pages/Accueil';
 import Sog from './pages/SOG';
 import Gd from './pages/GD';
+import Ajout from './pages/Ajout';
 import './index.css';
-import 'bootstrap/dist/css/bootstrap.min.css'
+import 'bootstrap/dist/css/bootstrap.min.css';
 import Footer from './components/Footer';
 
 export default function App() {
@@ -13,6 +14,7 @@ export default function App() {
       <Header />
       <Routes>
         <Route path="/" element={<Accueil />} />
+        <Route path="/ajout" element={<Ajout />} />
         <Route path="/gendarmes" element={<Gd />} />
         <Route path="/sous-officier" element={<Sog />} />
       </Routes>

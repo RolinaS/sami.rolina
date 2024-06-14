@@ -1,6 +1,8 @@
 // src/pages/Homme.jsx
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import Table from 'react-bootstrap/esm/Table';
+import Button from 'react-bootstrap/esm/Button';
 
 export default function GD() {
   const [gendarmes, setGendarmes] = useState([]);
@@ -42,6 +44,9 @@ export default function GD() {
   return (
     <div>
       <h1>Liste des gendarmes</h1>
+      <Link to="/ajout">
+        <Button variant="primary">Ajouter un GD</Button>
+      </Link>
       <Table striped bordered hover>
         <thead>
           <tr>
