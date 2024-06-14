@@ -18,7 +18,7 @@ const dbOptions = {
 
 app.use(myConnection(mysql, dbOptions, 'single'));
 
-// API endpoint to list all records from the 'homme' table
+// API endpoint to list all records from the 'gendarme' table
 app.get('/api/gendarmes', (req, res) => {
   req.getConnection((err, connection) => {
     if (err) {
@@ -27,6 +27,27 @@ app.get('/api/gendarmes', (req, res) => {
     }
 
     const query = 'SELECT * FROM gendarmes';  // Make sure your table name is 'homme'
+
+    connection.query(query, (err, results) => {
+      if (err) {
+        console.error('Error executing query:', err);
+        return res.status(500).send('Query execution error');
+      }
+
+      res.json(results);
+    });
+  });
+});
+
+// API endpoint to list all records from the 'sog' table
+app.get('/api/sous-officier', (req, res) => {
+  req.getConnection((err, connection) => {
+    if (err) {
+      console.error('Error connecting to the database:', err);
+      return res.status(500).send('Database connection error');
+    }
+
+    const query = 'SELECT * FROM sog';  // Make sure your table name is 'homme'
 
     connection.query(query, (err, results) => {
       if (err) {
