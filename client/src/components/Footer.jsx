@@ -2,8 +2,18 @@ import {Container, Row, Col, Stack, Image, Nav, NavLink} from "react-bootstrap"
 import { Link } from 'react-router-dom';
 
 export default function Footer(){
+
+    const footerStyle = {
+        position: 'fixed',
+        bottom: 0,
+        width: '100%',
+        backgroundColor: '#f1f1f1',
+        textAlign: 'center',
+        boxShadow: '0 -2px 5px rgba(0, 0, 0, 0.1)',
+      };
+
     return(
-        <footer>
+        <footer style={footerStyle}>
             < Container fluid>
                 <Row className="bg-primary text-white p-4">
                     <Col className="mx-5">
