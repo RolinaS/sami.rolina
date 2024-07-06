@@ -8,15 +8,18 @@ const app = express();
 
 // Middleware
 app.use(cors());
-app.use(express.json()); // Middleware pour analyser les requêtes JSON
+app.use(express.json()); // Middleware to parse JSON requests
 
+// Database connection options
 const dbOptions = {
-  host: process.env.DB_HOST,
-  user: process.env.MYSQL_USER,
-  password: process.env.MYSQL_PASSWORD,
-  database: process.env.MYSQL_DATABASE,
-  port: process.env.DB_PORT,
+  host: process.env.DB_HOST || 'localhost',
+  user: process.env.MYSQL_USER || 'user',
+  password: process.env.MYSQL_PASSWORD || 'password',
+  database: process.env.MYSQL_DATABASE || 'database',
+  port: process.env.DB_PORT || '3306',
 };
+
+console.log('Database connection options:', dbOptions); // Debugging output
 
 app.use(myConnection(mysql, dbOptions, 'single'));
 
@@ -28,7 +31,7 @@ app.get('/api/gendarmes', (req, res) => {
       return res.status(500).send('Database connection error');
     }
 
-    const query = 'SELECT * FROM gendarmes';  // Assurez-vous que le nom de votre table est correct
+    const query = 'SELECT * FROM gendarmes';  // Ensure your table name is correct
 
     connection.query(query, (err, results) => {
       if (err) {
@@ -49,7 +52,7 @@ app.get('/api/sous-officier', (req, res) => {
       return res.status(500).send('Database connection error');
     }
 
-    const query = 'SELECT * FROM sog';  // Assurez-vous que le nom de votre table est correct
+    const query = 'SELECT * FROM sog';  // Ensure your table name is correct
 
     connection.query(query, (err, results) => {
       if (err) {
@@ -64,9 +67,9 @@ app.get('/api/sous-officier', (req, res) => {
 
 // INSERT
 app.post('/ajout/gendarmes', (req, res) => {
-  console.log('Request Body:', req.body); // Ajoutez ceci pour déboguer
+  console.log('Request Body:', req.body); // Debugging output
 
-  const { nom, prenom, grade } = req.body; // Assurez-vous que req.body contient les bonnes clés
+  const { nom, prenom, grade } = req.body; // Ensure req.body contains the correct keys
 
   if (!nom || !prenom || !grade) {
     return res.status(400).json({ error: 'Nom, prenom et grade sont requis' });

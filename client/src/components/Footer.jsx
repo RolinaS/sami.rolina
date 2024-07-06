@@ -13,11 +13,7 @@ export default function Footer(){
       };
 
     return(
-<<<<<<< HEAD
-        <footer style={{position: 'fixed', bottom: '0', width: '100%'}}>
-=======
         <footer style={footerStyle}>
->>>>>>> 4ad9ca4b4f69b84f19e4003e569b184c4206dc2d
             < Container fluid>
                 <Row className="bg-primary text-white p-4">
                     <Col className="mx-5">
